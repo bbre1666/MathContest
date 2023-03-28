@@ -39,11 +39,14 @@ Public Class MathContest
         Dim FirstNumber As Integer
         Dim SecondNumber As Integer
         Dim StudentAnswer As Integer
-        FirstNumber = CInt(FirstNumberTextBox.Text)
-        SecondNumber = CInt(SecondNumberTextBox.Text)
-        StudentAnswer = CInt(AnswerTextBox.Text)
-
-        'all below check if the answer submitted is actually the correct answer
+        FirstNumber = CInt(Int(FirstNumberTextBox.Text))
+        SecondNumber = CInt(Int(SecondNumberTextBox.Text))
+        Try
+            StudentAnswer = CInt(Int(AnswerTextBox.Text))
+        Catch
+            MsgBox("that is not a number plese enter a number")
+        End Try
+        'check if the answer submitted is actually the correct answer
         'based on the selected operation
         If ADDCheckBox.Checked = True Then
             If StudentAnswer = (FirstNumber + SecondNumber) Then
@@ -98,6 +101,9 @@ Public Class MathContest
                 MsgBox("I think you broke the program")
             End If
         End If
+        If ADDCheckBox.Checked = False And SubtractCheckBox.Checked = False And MultiplyCheckBox.Checked = False And DivideCheckBox.Checked = False Then
+            MsgBox("select an operation ")
+        End If
     End Sub
     Private Sub PageClear()
         NameTextBox.Clear()
@@ -106,7 +112,10 @@ Public Class MathContest
         AnswerTextBox.Clear()
         AgeNumericUpDown.Value = 4
         GradeNumericUpDown.Value = 1
-
+        ADDCheckBox.Checked = False
+        SubtractCheckBox.Checked = False
+        MultiplyCheckBox.Checked = False
+        DivideCheckBox.Checked = False
     End Sub
     Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummeryButton.Click
         'displays to the user the number of questions answered correct or incorrect
